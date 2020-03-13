@@ -1,11 +1,16 @@
 <template>
   <div>
-    WELCOME
+    <h3 v-text="info"></h3>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'home'
+  name: 'home',
+  data() {
+    return {
+      info: 'Welcome'
+    }
+  },
 }
 </script>
