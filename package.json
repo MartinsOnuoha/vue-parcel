@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel ./src/index.html",
+    "build": "parcel ./src/index.html --open",
+    "verbose-build": "parcel build ./src/index.html --detailed-report",
     "serve": "parcel watch ./src/index.html"
   },
   "keywords": [],
