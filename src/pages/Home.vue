@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="row mt-4">
-      <div class="col-md-4" v-for="(household, i) in householdData" :key="i">
+      <div class="col-md-4 mt-2" v-for="(household, i) in householdData" :key="i">
         <HouseHold :household=household />
       </div>
     </div>
@@ -16,31 +16,28 @@
 <script>
 import HouseHold from '../components/HouseHold.vue';
 import Searchbar from '../components/SearchBar.vue';
+import { getFromStorage } from '../js/storage';
 
 export default {
   name: 'home',
   data() {
     return {
       info: 'Welcome',
-      householdData: [
-        {
-          title: 'Card Title',
-          body: 'card body details'
-        },
-        {
-          title: 'Card Title',
-          body: 'card body details'
-        },
-        {
-          title: 'Card Title',
-          body: 'card body details'
-        }
-      ]
+      householdData: [],
     }
   },
   components: {
     HouseHold,
     'app-searchbar': Searchbar
   },
+  mounted() {
+    this.loadData();
+  },
+  methods: {
+    async loadData() {
+      const data = await getFromStorage('households');
+      this.householdData = data;
+    },
+  }
 };
 </script>

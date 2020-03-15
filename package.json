@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel ./src/index.html --open",
+    "build": "parcel ./src/index.html",
     "verbose-build": "parcel build ./src/index.html --detailed-report",
-    "serve": "parcel watch ./src/index.html"
+    "serve": "parcel ./src/index.html --open",
+    "clear": "rm -rf ./.cache && parcel build ./src/index.html"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,8 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
+    "axios": "^0.19.2",
+    "md5": "^2.2.1",
     "vue": "^2.6.11",
     "vue-hot-reload-api": "^2.3.4"
   }
