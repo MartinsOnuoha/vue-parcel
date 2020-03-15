@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-body">
       <h3 class="mb-3">Login</h3>
-      <form>
+      <form @submit.prevent="login">
         <div class="form-group">
           <label for="email">Email address</label>
           <input v-model="form.email" type="email" class="form-control" id="email">
@@ -21,17 +21,24 @@
   </div>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
   label {
     font-size: 13px;
     color: gray;
   }
-  .card { width: 20rem; }
+  @media screen
+  and (min-device-width: 1200px)
+  and (max-device-width: 1600px)
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .card { width: 20rem; }
+  }
 </style>
 
 <script>
+import { login } from '../js/auth';
+
 export default {
-  name: 'form',
+  name: 'app-form',
   data() {
     return {
       form: {
@@ -43,7 +50,7 @@ export default {
   },
   methods: {
     login() {
-      // TODO: login
+      login(this.form, this);
     }
   },
 }
