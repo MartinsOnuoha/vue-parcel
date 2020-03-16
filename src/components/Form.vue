@@ -15,7 +15,7 @@
           <label for="password">Password</label>
           <input v-model="form.password" type="password" class="form-control" id="password">
         </div>
-        <button type="submit" class="btn btn-secondary btn-block mt-4">Submit</button>
+        <button type="submit" class="btn btn-secondary btn-block mt-4" v-text="submit"></button>
       </form>
     </div>
   </div>
@@ -25,6 +25,9 @@
   label {
     font-size: 13px;
     color: gray;
+  }
+  button:disabled {
+
   }
   @media screen
   and (min-device-width: 1200px)
@@ -45,12 +48,15 @@ export default {
         fullName: '',
         email: '',
         password: '',
-      }
+      },
+      submit: 'Submit'
     }
   },
   methods: {
-    login() {
-      login(this.form, this);
+    login(e) {
+      e.target.lastElementChild.disabled = true;
+      this.submit = 'Please wait...';
+      login(this.form);
     }
   },
 }
