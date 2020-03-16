@@ -8,7 +8,8 @@
     "build": "parcel ./src/index.html",
     "verbose-build": "parcel build ./src/index.html --detailed-report",
     "serve": "parcel ./src/index.html --open",
-    "clear": "rm -rf ./.cache && parcel build ./src/index.html"
+    "clear": "rm -rf ./.cache && parcel build ./src/index.html",
+    "publish": "rm -rf ./dist && parcel build ./src/index.html --detailed-report && cp -r ./dist/* ./docs"
   },
   "keywords": [],
   "author": "",
