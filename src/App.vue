@@ -13,6 +13,7 @@
 <script>
 import Login from './pages/Login.vue';
 import Home from './pages/Home.vue';
+import Profile from './pages/Profile.vue';
 import EventBus from './js/eventBus';
 
 export default {
@@ -26,12 +27,15 @@ export default {
   },
   components: {
     login: Login,
-    home: Home
+    home: Home,
+    profile: Profile
   },
   mounted() {
     EventBus.$on('is-logged-in', (data) => {
-      console.log('now logged in', data);
       data ? this.componentId = 'home' : this.componentId = 'login'
+    });
+    EventBus.$on('change-page', (pageName) => {
+      this.componentId = pageName
     });
     const { isLoggedIn } = this;
     isLoggedIn ? this.componentId = 'home' : this.componentId = 'login';

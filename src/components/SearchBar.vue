@@ -33,7 +33,7 @@ export default {
   },
   watch: {
     query(val, oldVal) {
-      const result = this.households.filter(x => x.Household.includes(val));
+      const result = this.households.filter(x => x[`${this.filterBy}`].includes(val));
       EventBus.$emit('filtered', result);
     },
   },
