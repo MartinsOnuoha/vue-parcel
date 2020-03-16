@@ -4,7 +4,7 @@ import md5 from 'md5';
 import EventBus from './eventBus';
 
  class Auth {
-  static async login({ email, fullName, password }, vue) {
+  static async login({ email, fullName, password }) {
     try {
       const avatar = `https://www.gravatar.com/avatar/${md5(email)}`;
 

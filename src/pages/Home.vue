@@ -2,7 +2,7 @@
   <div class="mt-5">
     <div class="row">
       <div class="col-md-3">
-        <img @click="changePage('profile')" class="img-thumbnail" :src="user.avatar" alt="" style="overflow: hidden">
+        <img @click="changePage('profile')" class="img-thumbnail" :src="user.avatar" alt="">
       </div>
     </div>
     <div class="row justify-content-center">
