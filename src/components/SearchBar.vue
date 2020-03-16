@@ -1,24 +1,46 @@
 <template>
   <div class="input-group mb-3">
     <div class="input-group-prepend">
-      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter By</button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Market Value</a>
-        <a class="dropdown-item" href="#">Custodian</a>
-        <a class="dropdown-item" href="#">Fee Schedule</a>
-        <div role="separator" class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Status</a>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Filter By</label>
+        </div>
+        <select v-model="filterBy" class="custom-select" id="inputGroupSelect01">
+          <option value="Custodian">Custodian</option>
+          <option value="Household">Household</option>
+          <option value="Account Type">Account Type</option>
+          <option value="Account Number">Account Number</option>
+        </select>
       </div>
     </div>
-    <input type="text" class="form-control" aria-label="Text input with dropdown button">
-    <div class="input-group-append">
-      <span class="input-group-text">Search</span>
-    </div>
+    <input v-model="query" type="text" class="form-control" aria-label="Text input with dropdown button">
   </div>
 </template>
 
 <script>
+import { getFromStorage } from '../js/storage'
+import EventBus from '../js/eventBus';
+
+
 export default {
-  name: 'search-bar'
+  name: 'search-bar',
+  data() {
+    return {
+      households: getFromStorage('households'),
+      filterBy: 'Custodian',
+      query: ''
+    }
+  },
+  watch: {
+    query(val, oldVal) {
+      const result = this.households.filter(x => x.Household.includes(val));
+      EventBus.$emit('filtered', result);
+    },
+  },
+  methods: {
+    filterData(e) {
+      console.log(e);
+    }
+  }
 }
 </script>
