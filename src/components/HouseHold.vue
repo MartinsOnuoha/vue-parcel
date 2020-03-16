@@ -11,17 +11,17 @@
 
       <p class="card-text f-13">
         <strong>Market Value:</strong>
-        <span v-text="household['Market Value']"></span>
+        <span v-text="formatNumber(household['Market Value'])"></span>
       </p>
 
       <p class="card-text f-13">
         <strong>MarketValue Date:</strong>
-        <span v-text="household['MarketValue Date']"></span>
+        <span v-text="formatDate(household['MarketValue Date'])"></span>
       </p>
 
       <p class="card-text f-13">
         <strong>Fee Account:</strong>
-        <span v-text="household['Fee Account']"></span>
+        <span class="badge badge-success" v-text="household['Fee Account']"></span>
       </p>
 
       <p class="card-text f-13">
@@ -42,8 +42,18 @@
   }
 </style>
 <script>
+import { formatDate, formatCurrency } from '../js/formatter';
+
 export default {
   name: 'house-hold',
   props: [ 'household' ],
+  methods: {
+    formatDate(value) {
+      return formatDate(value);
+    },
+    formatNumber(value) {
+      return formatCurrency(value);
+    }
+  },
 }
 </script>
