@@ -2,7 +2,7 @@ import moment from 'moment';
 import numeral from 'numeral';
 
 const formatDate = (value) => {
-  return moment(value).format('ll');
+  return moment(new Date(value)).format('ll');
 }
 
 const formatCurrency = (value) => {

@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title" v-text="household.Household">Card title</h5>
+      <h5 class="card-title" v-text="household.Household"></h5>
       <h6 class="card-subtitle badge mb-2 text-muted f-12" v-text="household['Account Number']"></h6>
       <p class="card-text badge badge-warning" v-text="household['Account Type']"></p>
       <p class="card-text f-13">
