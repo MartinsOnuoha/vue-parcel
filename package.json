@@ -9,7 +9,7 @@
     "verbose-build": "parcel build ./src/index.html --detailed-report",
     "serve": "parcel ./src/index.html --open",
     "clear": "rm -rf ./.cache && parcel build ./src/index.html",
-    "publish": "rm -rf ./dist && parcel build ./src/index.html --detailed-report && cp -r ./dist/* ./docs"
+    "publish": "rm -rf ./dist ./docs/* && parcel build ./src/index.html --detailed-report && cp -r ./dist/* ./docs && cp ./.htaccess ./docs"
   },
   "keywords": [],
   "author": "",
