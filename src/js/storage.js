@@ -9,10 +9,10 @@ const removeFromStorage = (key) => {
 const saveToStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
 const groupData = (arr, field = 'Household') => {
-  const result = arr.reduce((accumulator, item) => {
+  const result = arr.reduce((acc, item) => {
     let key = item[field]
-    !accumulator[key] ? accumulator[key] = [] : accumulator[key].push(item);
-    return accumulator;
+    !acc[key] ? acc[key] = [] : acc[key].push(item);
+    return acc;
   }, {});
   return Object.entries(result).map((x, i) => ({ id: i, name: x[0], accounts: x[1] }))
 }
