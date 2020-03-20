@@ -7,7 +7,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-md-5">
-        <app-searchbar />
+        <app-searchbar :house=householdData />
       </div>
       <div class="col-md-2">
         <app-sortbar />
@@ -18,12 +18,12 @@
         <h2 class="text-muted">Reloading Data...</h2>
       </div>
     </div>
-    <div class="row mt-4" v-if="!isReloading">
+    <div class="row mt-4 justify-content-center" v-if="!isReloading">
       <div class="col-md-4" v-if="householdData.length < 1">
         <h2 class="text-muted">Sorry, No Data</h2>
       </div>
-      <div class="col-md-4 mt-2" v-for="(household, i) in householdData" :key="i">
-        <HouseHold :household=household />
+      <div class="col-md-11 mt-2" v-for="(household, i) in householdData" :key="i">
+        <household :household=household />
       </div>
     </div>
   </div>
@@ -38,7 +38,7 @@
 import HouseHold from '../components/HouseHold.vue';
 import Searchbar from '../components/SearchBar.vue';
 import Sortbar from '../components/Sortbar.vue';
-import { getFromStorage, saveToStorage } from '../js/storage';
+import { getFromStorage, saveToStorage, groupData } from '../js/storage';
 import EventBus from '../js/eventBus';
 import Api from '../config/api';
 
@@ -53,9 +53,12 @@ export default {
     }
   },
   components: {
-    HouseHold,
+    'household': HouseHold,
     'app-searchbar': Searchbar,
     'app-sortbar': Sortbar
+  },
+  beforeMount() {
+    this.loadData();
   },
   mounted() {
     EventBus.$on('filtered', (data) => {
@@ -64,12 +67,12 @@ export default {
     EventBus.$on('reload-data', () => {
       this.reload();
     })
-    this.loadData();
   },
   methods: {
     async loadData() {
       const data = await getFromStorage('households');
-      this.householdData = data;
+
+      this.householdData = groupData(data);
       this.isReloading = false;
     },
     changePage(name) {
@@ -81,6 +84,14 @@ export default {
       const { data } = response;
       saveToStorage('households', data);
       this.loadData();
+    },
+    groupData(arr, field = 'Household') {
+      const result = arr.reduce((accumulator, item) => {
+        let key = item[field]
+        !accumulator[key] ? accumulator[key] = [] : accumulator[key].push(item);
+        return accumulator;
+      }, {});
+      return Object.entries(result).map((x, i) => ({ id: i, name: x[0], accounts: x[1] }))
     }
   }
 };

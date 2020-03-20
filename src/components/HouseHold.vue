@@ -1,59 +1,48 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title" v-text="household.Household"></h5>
-      <h6 class="card-subtitle badge mb-2 text-muted f-12" v-text="household['Account Number']"></h6>
-      <p class="card-text badge badge-warning" v-text="household['Account Type']"></p>
-      <p class="card-text f-13">
-        <strong>Custodian:</strong>
-        <span v-text="household.Custodian"></span>
-      </p>
+  <div>
+    <div class="accordion" id="accordionExample">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link"
+              type="button"
+              data-toggle="collapse"
+              :data-target="`#acc-${household.id}`"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+              v-text="household.name"
+            >
+            </button>
+          </h2>
+        </div>
 
-      <p class="card-text f-13">
-        <strong>Market Value:</strong>
-        <span v-text="formatNumber(household['Market Value'])"></span>
-      </p>
-
-      <p class="card-text f-13">
-        <strong>MarketValue Date:</strong>
-        <span v-text="formatDate(household['MarketValue Date'])"></span>
-      </p>
-
-      <p class="card-text f-13">
-        <strong>Fee Account:</strong>
-        <span class="badge badge-success" v-text="household['Fee Account']"></span>
-      </p>
-
-      <p class="card-text f-13">
-        <strong>Fee Schedule:</strong>
-        <span v-text="household['Fee Schedule']"></span>
-      </p>
-
-      <hr>
-      <p class="card-text" v-text=""></p>
-      <a href="#" class="card-link">View Account Details</a>
+        <div
+          :id="`acc-${household.id}`"
+          class="collapse"
+          aria-labelledby="headingOne"
+          data-parent="#accordionExample"
+        >
+          <div class="card-body row">
+            <div class="col-md-3" v-for="(account, i) in household.accounts" :key="i">
+              <Account :account="account" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
-<style lang="css" scoped>
-  strong {
-    color: #455A64;
-  }
-</style>
+
 <script>
-import { formatDate, formatCurrency } from '../js/formatter';
+import Account from './Account.vue';
 
 export default {
-  name: 'house-hold',
-  props: [ 'household' ],
-  methods: {
-    formatDate(value) {
-      return formatDate(value);
-    },
-    formatNumber(value) {
-      return formatCurrency(value);
-    }
+  name: 'new-house',
+  props: ['household'],
+  components: {
+    Account
   },
 }
 </script>
