@@ -13,7 +13,7 @@
         </select>
       </div>
     </div>
-    <input v-model="query" type="text" class="form-control" aria-label="Text input with dropdown button">
+    <input v-on:keyup="filterData" v-model="query" type="text" class="form-control" aria-label="Text input with dropdown button">
   </div>
 </template>
 
@@ -31,15 +31,14 @@ export default {
       query: ''
     }
   },
-  watch: {
-    query(val, oldVal) {
-      const result = this.households.filter(x => String(x[`${this.filterBy}`]).toLowerCase().includes(val.toLowerCase()));
-      EventBus.$emit('filtered', result);
-    },
+  mounted() {
+    console.log(this)
   },
   methods: {
     filterData(e) {
-      console.log(e);
+      const { value } = e.target;
+      const result = this.households.filter(x => String(x[`${this.filterBy}`]).toLowerCase().includes(value.toLowerCase()));
+      EventBus.$emit('filtered', result);
     }
   }
 }
