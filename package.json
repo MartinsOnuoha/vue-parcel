@@ -15,6 +15,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@vue/component-compiler-utils": "^3.1.1",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
@@ -22,6 +24,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
+    "@babel/runtime-corejs3": "^7.8.7",
     "axios": "^0.19.2",
     "md5": "^2.2.1",
     "moment": "^2.24.0",
