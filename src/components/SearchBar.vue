@@ -6,10 +6,7 @@
           <label class="input-group-text" for="inputGroupSelect01">Filter By</label>
         </div>
         <select v-model="filterBy" class="custom-select" id="inputGroupSelect01">
-          <option value="Custodian">Custodian</option>
           <option value="Household">Household</option>
-          <option value="Account Type">Account Type</option>
-          <option value="Account Number">Account Number</option>
         </select>
       </div>
     </div>
@@ -18,7 +15,7 @@
 </template>
 
 <script>
-import { getFromStorage } from '../js/storage'
+import { getFromStorage, groupData } from '../js/storage'
 import EventBus from '../js/eventBus';
 
 
@@ -26,19 +23,22 @@ export default {
   name: 'search-bar',
   data() {
     return {
-      households: getFromStorage('households'),
-      filterBy: 'Custodian',
+      households: groupData(getFromStorage('households')),
+      filterBy: 'Household',
       query: ''
     }
   },
   mounted() {
-    console.log(this)
   },
   methods: {
     filterData(e) {
       const { value } = e.target;
-      const result = this.households.filter(x => String(x[`${this.filterBy}`]).toLowerCase().includes(value.toLowerCase()));
+      const result = this.filterHouseHold(value);
       EventBus.$emit('filtered', result);
+    },
+    filterHouseHold(query) {
+      const result = this.households.filter(x => x.name.includes(query));
+      return result;
     }
   }
 }
