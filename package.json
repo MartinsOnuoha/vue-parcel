@@ -24,7 +24,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.8.7",
+    "@babel/runtime-corejs3": "^7.26.10",
     "axios": "^1.7.4",
     "md5": "^2.2.1",
     "moment": "^2.29.4",
